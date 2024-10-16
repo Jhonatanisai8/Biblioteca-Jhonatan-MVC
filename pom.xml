@@ -11,4 +11,15 @@
         <maven.compiler.target>15</maven.compiler.target>
         <exec.mainClass>com.jhonatan.biblioteca.Principal</exec.mainClass>
     </properties>
+    
+    <dependencies>
+        <!-- dependencia MYSQL-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.29</version>
+        </dependency>
+
+    </dependencies>   
+    
 </project>

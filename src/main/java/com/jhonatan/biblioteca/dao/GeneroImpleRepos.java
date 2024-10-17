@@ -17,6 +17,7 @@ public class GeneroImpleRepos
     private static final String SQL_INSERT = "INSERT INTO genero(nombre_genero) VALUES (?)";
     private static final String SQL_UPDATE = "UPDATE FROM genero SET nombre = ? WHERE id_genero = ?";
     private static final String SQL_DELETE = "DELETE FROM genero WHERE id_genero = ?";
+    private static final String SQL_SEARCH = "SELECT id_genero,nombre_genero FROM genero WHERE id_genero = ?";
     
     //para la conexion 
     private Connection getConection() throws SQLException {
@@ -44,7 +45,20 @@ public class GeneroImpleRepos
 
     @Override
     public Genero porId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Genero g = null;
+        try(Connection conn = getConection();
+            PreparedStatement st = conn.prepareStatement(SQL_SEARCH);
+            ){
+            st.setLong(1, id);
+            try(ResultSet rs = st.executeQuery(); ){
+                if (rs.next()) {
+                    g = crearGenero(rs);
+                }
+            }
+        } catch(SQLException ex){
+            System.out.println("error en porId: "+ex.getMessage());
+        }
+        return g;
     }
 
     @Override

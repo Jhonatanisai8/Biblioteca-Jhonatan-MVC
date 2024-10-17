@@ -17,6 +17,7 @@ public class UsuarioImpleRepos
     private static final String SQL_SEARCH = "SELECT id_usuario,nombre_usu,apellido1,apellido2,telefono,email,direccion FROM usuario WHERE id_usuario = ?";
     private static final String SQL_INSERT = "INSERT INTO usuario (nombre_usu,apellido1,apellido2,telefono,email,direccion) VALUES (?,?,?,?,?,?)";
     private static final String SQL_UPDATE = "UPDATE usuario SET nombre_usu = ?,apellido1 = ? ,apellido2 = ? ,telefono = ? ,email = ?,direccion = ? WHERE id_usuario = ?";
+    private static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
 
     //para la conexion 
     private Connection getConection() throws SQLException {
@@ -81,7 +82,12 @@ public class UsuarioImpleRepos
 
     @Override
     public void eliminar(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try ( Connection conn = getConection();  PreparedStatement st = conn.prepareStatement(SQL_DELETE);) {
+            st.setLong(1, id);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar un usuario: " + ex.getMessage());
+        }
     }
 
     private Usuario crearUsuario(final ResultSet rs) throws SQLException {

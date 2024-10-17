@@ -15,7 +15,7 @@ public class GeneroImpleRepos
 
     private static final String SQL_SELECT = "SELECT id_genero,nombre_genero FROM genero";
     private static final String SQL_INSERT = "INSERT INTO genero(nombre_genero) VALUES (?)";
-    private static final String SQL_UPDATE = "UPDATE FROM genero SET nombre = ? WHERE id_genero = ?";
+    private static final String SQL_UPDATE = "UPDATE  genero SET nombre_genero = ? WHERE id_genero = ?";
     private static final String SQL_DELETE = "DELETE FROM genero WHERE id_genero = ?";
     private static final String SQL_SEARCH = "SELECT id_genero,nombre_genero FROM genero WHERE id_genero = ?";
     

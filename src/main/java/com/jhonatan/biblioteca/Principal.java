@@ -3,15 +3,18 @@ package com.jhonatan.biblioteca;
 import com.jhonatan.biblioteca.dao.EditorialImpleRepos;
 import com.jhonatan.biblioteca.dao.GeneroImpleRepos;
 import com.jhonatan.biblioteca.dao.Repositorio;
+import com.jhonatan.biblioteca.dao.UsuarioImpleRepos;
 import com.jhonatan.biblioteca.modelo.Editorial;
 import com.jhonatan.biblioteca.modelo.Genero;
+import com.jhonatan.biblioteca.modelo.Usuario;
 
 public class Principal {
 
     public static void main(String[] args) {
         System.out.println("Mi biblioteca");
         //ejemploGeneros();
-        ejemploEditoriales();
+        //ejemploEditoriales();
+        ejemploUsuarios();
     }
 
     public static void ejemploGeneros() {
@@ -112,5 +115,59 @@ public class Principal {
 
         System.out.println("=====LISTADO DE EDITORIALES=====");
         repositorio.listar().forEach(System.out::println);
+    }
+
+    public static void ejemploUsuarios() {
+        Repositorio<Usuario> repositorio = new UsuarioImpleRepos();
+        System.out.println("====CREACION DE USUARIOS====");
+
+        //creamos los objetos de tipo usuario
+        Usuario juan = new Usuario();
+        juan.setNombre("Juan Aldair");
+        juan.setApellido1("Perez");
+        juan.setApellido2("Lopez");
+        juan.setTelefono("987654321");
+        juan.setEmail("juan@gmail.com");
+        juan.setDireccion("Los Olivos");
+
+        Usuario pedro = new Usuario();
+        pedro.setNombre("Pedro Alex");
+        pedro.setApellido1("Rios");
+        pedro.setApellido2("Jaurez");
+        pedro.setTelefono("987123321");
+        pedro.setEmail("Alex@gmail.com");
+        pedro.setDireccion("Comas");
+
+        //repositorio.guardar(juan);
+        //repositorio.guardar(pedro);
+        //System.out.println("objetos insertados correctamente...........");
+        System.out.println("====LISTA DE USUARIOS====");
+        repositorio.listar().forEach(System.out::println);
+
+        System.out.println("====MODIFICACION DE USUARIO====");
+        Usuario alex = new Usuario();
+        alex.setIdUsuario(1L);
+        alex.setNombre("Alex Samir");
+        alex.setApellido1("Valdivieso");
+        alex.setApellido2("Lopez");
+        alex.setTelefono("911123321");
+        alex.setEmail("valida@gmail.com");
+        alex.setDireccion("Miraflores");
+        //repositorio.guardar(alex);
+        //System.out.println("modificacion de usuario exitosoo con id: " + alex.getIdUsuario());
+
+        System.out.println("====LISTA DE USUARIOS====");
+        repositorio.listar().forEach(System.out::println);
+
+        System.out.println("====BUSCANDO USUARIO====");
+        System.out.println(repositorio.porId(2L));
+
+        System.out.println("====ELIMINACION DE USUARIO====");
+        repositorio.eliminar(2L);
+        System.out.println("Usuario eliminado------");
+
+        System.out.println("====LISTA DE USUARIOS====");
+        repositorio.listar().forEach(System.out::println);
+
     }
 }

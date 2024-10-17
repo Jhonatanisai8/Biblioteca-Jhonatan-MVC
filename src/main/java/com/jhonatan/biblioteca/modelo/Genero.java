@@ -2,18 +2,18 @@ package com.jhonatan.biblioteca.modelo;
 
 public class Genero {
 
-    private int idGenero;
+    private Long idGenero;
     private String nombreGenero;
 
     public Genero() {
     }
 
-    public Genero(int idGenero, String nombreGenero) {
+    public Genero(Long idGenero, String nombreGenero) {
         this.idGenero = idGenero;
         this.nombreGenero = nombreGenero;
     }
 
-    public int getIdGenero() {
+    public Long getIdGenero() {
         return idGenero;
     }
 
@@ -21,7 +21,7 @@ public class Genero {
         return nombreGenero;
     }
 
-    public void setIdGenero(int idGenero) {
+    public void setIdGenero(Long idGenero) {
         this.idGenero = idGenero;
     }
 

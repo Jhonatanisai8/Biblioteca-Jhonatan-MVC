@@ -15,6 +15,8 @@ public class EditorialImpleRepos
 
     private static final String SQL_SELECT = "SELECT id_editorial,nombre_edi,pais FROM editorial";
     private static final String SQL_SEARCH = "SELECT id_editorial,nombre_edi,pais FROM editorial WHERE id_editorial =  ?";
+    private static final String SQL_INSERT = "INSERT INTO editorial(nombre_edi,pais) VALUES (?,?)";
+    private static final String SQL_UPDATE = "UPDATE editorial SET nombre_edi = ?, pais = ? WHERE id_editorial = ?";
 
     //para la conexion 
     private Connection getConection() throws SQLException {
@@ -53,7 +55,22 @@ public class EditorialImpleRepos
 
     @Override
     public void guardar(Editorial t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String SQL;
+        if (t.getIdEditorial() != null && t.getIdEditorial() > 0) {
+            SQL = SQL_UPDATE;
+        } else {
+            SQL = SQL_INSERT;
+        }
+        try ( Connection conn = getConection();  PreparedStatement st = conn.prepareStatement(SQL);) {
+            st.setString(1, t.getNombreEditorial());
+            st.setString(2, t.getPais());
+            if (t.getIdEditorial() != null && t.getIdEditorial() > 0) {
+                st.setLong(3, t.getIdEditorial());
+            }
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("error al guardar o modificar: " + ex.getMessage());
+        }
     }
 
     @Override

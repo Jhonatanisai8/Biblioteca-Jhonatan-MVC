@@ -17,6 +17,7 @@ public class EditorialImpleRepos
     private static final String SQL_SEARCH = "SELECT id_editorial,nombre_edi,pais FROM editorial WHERE id_editorial =  ?";
     private static final String SQL_INSERT = "INSERT INTO editorial(nombre_edi,pais) VALUES (?,?)";
     private static final String SQL_UPDATE = "UPDATE editorial SET nombre_edi = ?, pais = ? WHERE id_editorial = ?";
+    private static final String SQL_DELETE = "DELETE FROM editorial WHERE id_editorial = ?";
 
     //para la conexion 
     private Connection getConection() throws SQLException {
@@ -75,7 +76,12 @@ public class EditorialImpleRepos
 
     @Override
     public void eliminar(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try ( Connection conn = getConection();  PreparedStatement st = conn.prepareStatement(SQL_DELETE);) {
+            st.setLong(1, id);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar un editorial: " + ex.getMessage());
+        }
     }
 
     private Editorial crearEditorial(final ResultSet rs) throws SQLException {

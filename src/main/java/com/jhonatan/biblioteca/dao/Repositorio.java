@@ -10,5 +10,5 @@ public interface Repositorio<T> {
 
     void guardar(T t);
 
-    void eliminar(T t);
+    void eliminar(Long id);
 }

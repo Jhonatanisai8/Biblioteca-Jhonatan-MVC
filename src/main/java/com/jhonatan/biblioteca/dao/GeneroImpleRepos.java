@@ -16,7 +16,8 @@ public class GeneroImpleRepos
     private static final String SQL_SELECT = "SELECT id_genero,nombre_genero FROM genero";
     private static final String SQL_INSERT = "INSERT INTO genero(nombre_genero) VALUES (?)";
     private static final String SQL_UPDATE = "UPDATE FROM genero SET nombre = ? WHERE id_genero = ?";
-
+    private static final String SQL_DELETE = "DELETE FROM genero WHERE id_genero = ?";
+    
     //para la conexion 
     private Connection getConection() throws SQLException {
         return Conexion.getInstance();
@@ -68,8 +69,14 @@ public class GeneroImpleRepos
     }
 
     @Override
-    public void eliminar(Genero t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void eliminar(Long id) {
+        try(Connection conn = getConection();
+            PreparedStatement st = conn.prepareStatement(SQL_DELETE);){
+            st.setLong(1, id);
+            st.executeUpdate();
+        } catch(SQLException ex){
+            System.out.println("Error al eliminar un genero: "+ex.getMessage());
+        }
     }
 
     private Genero crearGenero(final ResultSet rs) throws SQLException {

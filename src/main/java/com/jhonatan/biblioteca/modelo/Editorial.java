@@ -2,18 +2,28 @@ package com.jhonatan.biblioteca.modelo;
 
 public class Editorial {
 
-    private int idEditorial;
+    private Long idEditorial;
     private String nombreEditorial;
+    private String pais;
 
     public Editorial() {
     }
 
-    public Editorial(int idEditorial, String nombreEditorial) {
+    public Editorial(Long idEditorial, String nombreEditorial, String pais) {
         this.idEditorial = idEditorial;
         this.nombreEditorial = nombreEditorial;
+        this.pais = pais;
     }
 
-    public int getIdEditorial() {
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public Long getIdEditorial() {
         return idEditorial;
     }
 
@@ -21,7 +31,7 @@ public class Editorial {
         return nombreEditorial;
     }
 
-    public void setIdEditorial(int idEditorial) {
+    public void setIdEditorial(Long idEditorial) {
         this.idEditorial = idEditorial;
     }
 

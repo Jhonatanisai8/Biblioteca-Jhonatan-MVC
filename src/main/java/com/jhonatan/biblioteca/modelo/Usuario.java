@@ -2,7 +2,7 @@ package com.jhonatan.biblioteca.modelo;
 
 public class Usuario {
 
-    private int idUsuario;
+    private Long idUsuario;
     private String nombre;
     private String apellido1;
     private String apellido2;
@@ -13,7 +13,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String nombre, String apellido1, String apellido2, String telefono, String email, String direccion) {
+    public Usuario(Long idUsuario, String nombre, String apellido1, String apellido2, String telefono, String email, String direccion) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -23,11 +23,11 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-    public int getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 

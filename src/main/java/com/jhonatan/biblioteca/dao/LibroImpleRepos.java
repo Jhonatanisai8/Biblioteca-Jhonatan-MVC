@@ -38,6 +38,8 @@ public class LibroImpleRepos
             + "ON e.id_editorial = i.id_editorial "
             + "WHERE i.id_libro = ?";
 
+    private static final String SQL_DELETE = "DELETE FROM libro WHERE id_libro = ?";
+
     private Connection getConection() throws SQLException {
         return Conexion.getInstance();
     }
@@ -104,7 +106,12 @@ public class LibroImpleRepos
 
     @Override
     public void eliminar(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try ( Connection con = getConection();  PreparedStatement st = con.prepareStatement(SQL_DELETE);) {
+            st.setLong(1, id);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("error en el metodo eliminar: " + e.getMessage());
+        }
     }
 
     private Libro crearLibro(final ResultSet rs) throws SQLException {

@@ -2,7 +2,7 @@ package com.jhonatan.biblioteca.modelo;
 
 public class Libro {
 
-    private int idLibro;
+    private Long idLibro;
     private String titulo;
     private String autor;
     private String idioma;
@@ -16,7 +16,7 @@ public class Libro {
     public Libro() {
     }
 
-    public Libro(int idLibro, String titulo, String autor, String idioma, int anioPublicacion, int copiasDisponibles, int copiasTotales, int edicion, Editorial editorial, Genero genero) {
+    public Libro(Long idLibro, String titulo, String autor, String idioma, int anioPublicacion, int copiasDisponibles, int copiasTotales, int edicion, Editorial editorial, Genero genero) {
         this.idLibro = idLibro;
         this.titulo = titulo;
         this.autor = autor;
@@ -29,11 +29,11 @@ public class Libro {
         this.genero = genero;
     }
 
-    public int getIdLibro() {
+    public Long getIdLibro() {
         return idLibro;
     }
 
-    public void setIdLibro(int idLibro) {
+    public void setIdLibro(Long idLibro) {
         this.idLibro = idLibro;
     }
 

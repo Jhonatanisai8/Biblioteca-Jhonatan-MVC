@@ -28,6 +28,16 @@ public class LibroImpleRepos
     private static final String SQL_INSERT = "INSERT INTO libro (titulo,autor,idioma,anio_publicacion,copias_disponibles,total_copias,edicion,id_editorial,id_genero) "
             + "VALUES (?,?,?,?,?,?,?,?,?)";
 
+    private static final String SQL_SEARCH = "SELECT i.*, "
+            + "g.nombre_genero, "
+            + "e.nombre_edi "
+            + "FROM libro AS i "
+            + "INNER JOIN genero AS g "
+            + "ON  i.id_genero = g.id_genero "
+            + "INNER JOIN editorial AS e "
+            + "ON e.id_editorial = i.id_editorial "
+            + "WHERE i.id_libro = ?";
+
     private Connection getConection() throws SQLException {
         return Conexion.getInstance();
     }
@@ -49,7 +59,18 @@ public class LibroImpleRepos
 
     @Override
     public Libro porId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Libro libro = null;
+        try ( Connection con = getConection();  PreparedStatement pr = con.prepareStatement(SQL_SEARCH);) {
+            pr.setLong(1, id);
+            try ( ResultSet rs = pr.executeQuery();) {
+                if (rs.next()) {
+                    libro = crearLibro(rs);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("error al bsucar libro  por id: " + e.getMessage());
+        }
+        return libro;
     }
 
     @Override
@@ -71,7 +92,7 @@ public class LibroImpleRepos
             st.setInt(7, t.getEdicion());
             st.setLong(8, t.getEditorial().getIdEditorial());
             st.setLong(9, t.getGenero().getIdGenero());
-            
+
             if (t.getIdLibro() != null && t.getIdLibro() > 0) {
                 st.setLong(10, t.getIdLibro());
             }

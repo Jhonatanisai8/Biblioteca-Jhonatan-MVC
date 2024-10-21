@@ -2,10 +2,12 @@ package com.jhonatan.biblioteca;
 
 import com.jhonatan.biblioteca.dao.EditorialImpleRepos;
 import com.jhonatan.biblioteca.dao.GeneroImpleRepos;
+import com.jhonatan.biblioteca.dao.LibroImpleRepos;
 import com.jhonatan.biblioteca.dao.Repositorio;
 import com.jhonatan.biblioteca.dao.UsuarioImpleRepos;
 import com.jhonatan.biblioteca.modelo.Editorial;
 import com.jhonatan.biblioteca.modelo.Genero;
+import com.jhonatan.biblioteca.modelo.Libro;
 import com.jhonatan.biblioteca.modelo.Usuario;
 
 public class Principal {
@@ -14,7 +16,8 @@ public class Principal {
         System.out.println("Mi biblioteca");
         //ejemploGeneros();
         //ejemploEditoriales();
-        ejemploUsuarios();
+        //ejemploUsuarios();
+        insertarLibroEjemplo();
     }
 
     public static void ejemploGeneros() {
@@ -169,5 +172,91 @@ public class Principal {
         System.out.println("====LISTA DE USUARIOS====");
         repositorio.listar().forEach(System.out::println);
 
+    }
+
+    public static void insertarLibroEjemplo() {
+        Repositorio<Libro> repositorio = new LibroImpleRepos();
+        //System.out.println("==INSERTANDO LIBROS==");
+        Editorial simon = new Editorial();
+        simon.setIdEditorial(3L);
+        Genero novela = new Genero();
+        novela.setIdGenero(1L);
+
+//        Libro ejemplo1 = new Libro();
+//        ejemplo1.setTitulo("Ejemplo 01");
+//        ejemplo1.setAutor("Jhonatan Isai Ojeda Sanchez");
+//        ejemplo1.setIdioma("Español");
+//        ejemplo1.setAnioPublicacion(2035);
+//        ejemplo1.setCopiasDisponibles(150);
+//        ejemplo1.setCopiasTotales(150);
+//        ejemplo1.setEdicion(5);
+//        ejemplo1.setGenero(novela);
+//        ejemplo1.setEditorial(simon);
+//        repositorio.guardar(ejemplo1);
+//        System.out.println("libroooo guardado........");
+//        Libro ejemplo1 = new Libro();
+//        ejemplo1.setTitulo("Ejemplo 02");
+//        ejemplo1.setAutor("Daniel Ojeda Sanchez");
+//        ejemplo1.setIdioma("Ingles");
+//        ejemplo1.setAnioPublicacion(2038);
+//        ejemplo1.setCopiasDisponibles(120);
+//        ejemplo1.setCopiasTotales(120);
+//        ejemplo1.setEdicion(6);
+//        ejemplo1.setGenero(novela);
+//        ejemplo1.setEditorial(simon);
+//
+//        repositorio.guardar(ejemplo1);
+//        System.out.println("libroooo guardado........");
+        System.out.println("==LISTANDO LIBROS==");
+        repositorio.listar().forEach(System.out::println);
+
+        if (repositorio.listar().isEmpty()) {
+            System.out.println("LISTA DE LIBROS VACIA");
+        }
+
+        Libro ejemplo1 = new Libro();
+        ejemplo1.setTitulo("Ejemplo 03");
+        ejemplo1.setAutor("Lucas Alonso");
+        ejemplo1.setIdioma("Español");
+        ejemplo1.setAnioPublicacion(2033);
+        ejemplo1.setCopiasDisponibles(10);
+        ejemplo1.setCopiasTotales(10);
+        ejemplo1.setEdicion(5);
+        ejemplo1.setGenero(novela);
+        ejemplo1.setEditorial(simon);
+
+        repositorio.guardar(ejemplo1);
+        System.out.println("libro insertadooooo.......");
+
+        System.out.println("==BUSCANDO LIBRO==");
+        Long idBuscar = 1l;
+        Libro libroBuscado = repositorio.porId(idBuscar);
+        System.out.println(libroBuscado);
+        System.out.println("libro encontrado con id: " + idBuscar);
+
+        System.out.println("\t========MODIFICACION DE PRODUCTO========");
+        libroBuscado.setAnioPublicacion(2035);
+        libroBuscado.setIdioma("Ingles");
+        repositorio.guardar(libroBuscado);
+        System.out.println("libro modificado.........................");
+
+        System.out.println("==LISTANDO LIBROS==");
+        repositorio.listar().forEach(System.out::println);
+        if (repositorio.listar().isEmpty()) {
+            System.out.println("LISTA DE LIBROS VACIA");
+        }
+        
+        System.out.println("=ELIMINANDO UN LIBRO=");
+        repositorio.eliminar(3L);
+        repositorio.eliminar(4L);
+        repositorio.eliminar(5L);
+        System.out.println("libro eliminado......");
+        
+        System.out.println("==LISTANDO LIBROS==");
+        repositorio.listar().forEach(System.out::println);
+        
+        if (repositorio.listar().isEmpty()) {
+            System.out.println("LISTA DE LIBROS VACIA");
+        }
     }
 }
